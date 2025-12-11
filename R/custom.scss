@@ -1,0 +1,231 @@
+/*-- scss:defaults --*/
+
+// Palette de couleurs Jokkoo
+$primary: #2C3E50;
+$secondary: #3498DB;
+$accent: #E67E22;
+$success: #27AE60;
+$info: #3498DB;
+$warning: #F39C12;
+$danger: #E74C3C;
+
+// Typographie
+$font-family-sans-serif: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$headings-font-weight: 600;
+$body-color: #34495E;
+
+// Espacements
+$spacer: 1rem;
+
+/*-- scss:rules --*/
+
+// Style général du corps
+body {
+  font-family: $font-family-sans-serif;
+  color: $body-color;
+  line-height: 1.7;
+}
+
+// En-têtes
+h1, h2, h3, h4, h5, h6 {
+  color: $primary;
+  font-weight: $headings-font-weight;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  border-bottom: 3px solid $secondary;
+  padding-bottom: 0.5rem;
+  font-size: 2.5rem;
+}
+
+h2 {
+  border-left: 4px solid $accent;
+  padding-left: 1rem;
+  font-size: 2rem;
+}
+
+h3 {
+  color: $secondary;
+  font-size: 1.5rem;
+}
+
+// Liens
+a {
+  color: $secondary;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: darken($secondary, 15%);
+    text-decoration: underline;
+  }
+}
+
+// Callouts personnalisés
+.callout {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.callout-note {
+  border-left: 5px solid $info;
+  background-color: #EBF5FB;
+}
+
+.callout-tip {
+  border-left: 5px solid $success;
+  background-color: #EAFAF1;
+}
+
+.callout-warning {
+  border-left: 5px solid $warning;
+  background-color: #FEF5E7;
+}
+
+.callout-important {
+  border-left: 5px solid $danger;
+  background-color: #FADBD8;
+}
+
+// Tableaux
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+thead {
+  background-color: $primary;
+  color: white;
+  
+  th {
+    padding: 0.75rem;
+    font-weight: 600;
+    text-align: left;
+  }
+}
+
+tbody {
+  tr {
+    border-bottom: 1px solid #ECF0F1;
+    
+    &:nth-child(even) {
+      background-color: #F8F9FA;
+    }
+    
+    &:hover {
+      background-color: #E8F8F5;
+    }
+  }
+  
+  td {
+    padding: 0.75rem;
+  }
+}
+
+// Code
+pre {
+  background-color: #F8F9FA;
+  border-left: 3px solid $accent;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  overflow-x: auto;
+}
+
+code {
+  background-color: #F8F9FA;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+  color: $danger;
+}
+
+// Bloc de code plié
+details {
+  summary {
+    cursor: pointer;
+    color: $secondary;
+    font-weight: 600;
+    padding: 0.5rem;
+    background-color: #ECF0F1;
+    border-radius: 0.3rem;
+    margin-bottom: 0.5rem;
+    
+    &:hover {
+      background-color: darken(#ECF0F1, 5%);
+    }
+  }
+}
+
+// Table des matières
+.sidebar nav[role="doc-toc"] {
+  ul {
+    padding-left: 1rem;
+    
+    li a {
+      color: $body-color;
+      padding: 0.3rem 0;
+      display: block;
+      border-left: 3px solid transparent;
+      padding-left: 0.5rem;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        border-left-color: $secondary;
+        background-color: #F8F9FA;
+        text-decoration: none;
+      }
+      
+      &.active {
+        border-left-color: $accent;
+        font-weight: 600;
+        color: $primary;
+      }
+    }
+  }
+}
+
+// Figures
+figure {
+  margin: 2rem 0;
+  
+  figcaption {
+    color: #7F8C8D;
+    font-style: italic;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.9em;
+  }
+}
+
+// Boutons
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  &.btn-primary {
+    background-color: $primary;
+    color: white;
+    
+    &:hover {
+      background-color: darken($primary, 10%);
+    }
+  }
+}
+
+// Footer
+footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid #ECF0F1;
+  color: #7F8C8D;
+  text-align: center;
+}

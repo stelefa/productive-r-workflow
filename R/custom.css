@@ -1,0 +1,49 @@
+/* Palette de couleurs */
+:root {
+  --primary: #2C3E50;
+  --secondary: #3498DB;
+  --accent: #E67E22;
+}
+
+/* Titres */
+h1 {
+  color: var(--primary);
+  border-bottom: 3px solid var(--secondary);
+  padding-bottom: 10px;
+}
+
+h2 {
+  color: var(--primary);
+  border-left: 4px solid var(--accent);
+  padding-left: 15px;
+  margin-top: 30px;
+}
+
+/* Citations */
+blockquote {
+  border-left: 4px solid var(--secondary);
+  background-color: #f8f9fa;
+  padding: 15px;
+  margin: 20px 0;
+  font-style: italic;
+}
+
+/* Tableaux */
+table {
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: var(--primary);
+  color: white;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+td, th {
+  padding: 10px;
+  text-align: left;
+}

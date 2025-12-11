@@ -1,0 +1,5 @@
+"0",""
+"0","graph2<-data %>%"
+"0"," group_by(species) %>% "
+"0","  summarise(average_bill_depth = mean(bill_depth_mm, na.rm = TRUE))"
+"0","kable(graph2)"

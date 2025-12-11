@@ -1,0 +1,154 @@
+---
+title: "Analyse des Pingouins de Palmer"
+subtitle: "Explore le merveilleux monde des pingouins.." 
+description: "Analyse statistique et visualisation des caractéristiques morphologiques des pingouins Adelie, Gentoo et Chinstrap."
+
+author: 
+  name: "Lee Nux"
+  affiliation: "libre"
+  email: lee.nux@gmail.com
+keywords: "Quarto, Paradox, Data Analysis"
+date: today
+format:
+  html:
+    toc: true
+    toc-location: left
+    toc-title: " "
+    number-sections: true
+    code-fold: true
+    code-summary: "Show the code"
+fig-cap-location: margin
+title-block-banner: "#2C3E50"
+title-block-banner-color: "#ECF0F1"
+css: style.css
+---
+
+# Introduction
+
+Ce document présente une analyse **simple et efficace** du célèbre jeu de données des **pingouins de Palmer**. 
+
+L'objectif est d'explorer les **variations morphologiques** entre les trois espèces de pingouins (*Adelie*, *Gentoo* et *Chinstrap*) réparties sur différentes îles de l'archipel Palmer en Antarctique.
+
+Plus d'informations sur le dataset : [Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/)
+
+# Chargement des données
+
+Nous commençons par charger les **bibliothèques nécessaires** pour l'analyse :
+- `tidyverse` pour la manipulation et la visualisation des données
+- `here` pour la gestion robuste des chemins de fichiers
+- `knitr` pour la génération de tableaux élégants
+
+Les données ont été **préalablement nettoyées** et sont stockées dans le fichier `clean_data.rds`.
+
+**Librarys**
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(patchwork)
+library(DT)
+library(knitr)
+library(plotly)
+```
+
+**Style**
+```{r}
+# Palette de couleurs 
+cols <- c("#2C3E50", "#3498DB", "#E67E22")
+```
+
+**Chargement des datas**
+```{r}
+# Source functions
+source(file="functions.R")
+
+# Read the clean dataset
+data <- readRDS(file = "../input/clean_data.rds")
+```
+
+```{r}
+# Make a table
+datatable(data, filter = "top")
+```
+
+Le jeu de données contient **`r nrow(data)` observations** de pingouins avec **`r ncol(data)` variables** mesurées entre `r min(data$year)` et `r max(data$year)`.
+
+# Analyses descriptives
+
+Les **trois espèces** de pingouins présentes dans l'archipel Palmer présentent des différences morphologiques remarquables.
+
+![](asset/culmen_depth.png){fig-alt="Le culmen, ce pingouin encore méconnu" fig-align="left" width="300"}
+
+Il est particulièrement intéressant de noter que la **longueur du bec** (`bill length`) et la **profondeur du bec** (`bill depth`) varient considérablement d'une espèce à l'autre. 
+
+La moyenne d'une variable peut être calculée avec la formule suivante :
+
+$${\displaystyle Avg={\frac {1}{n}}\sum _{i=1}^{n}a_{i}={\frac {a_{1}+a_{2}+\cdots +a_{n}}{n}}}$$
+
+Les moyennes de la **longueur** et de la **profondeur du bec** sont résumées dans les deux tableaux ci-dessous.
+
+```{r}
+#| layout-ncol: 2
+graph1<-data %>%
+ group_by(species) %>% 
+  summarise(average_bill_length = mean(bill_length_mm, na.rm = TRUE))
+kable(graph1)
+
+graph2<-data %>%
+ group_by(species) %>% 
+  summarise(average_bill_depth = mean(bill_depth_mm, na.rm = TRUE))
+kable(graph2)
+```
+
+## Relation entre longueur et profondeur du bec
+
+Le graphique suivant illustre la **relation entre la longueur et la profondeur du bec** pour l'ensemble des observations. 
+
+```{r, fig.align = "center", fig.width=5, fig.height=5, warning=FALSE, fig.cap="Relationship between bill <b>length</b> and bill <b>depth</b>. <b>All</b> data points included."}
+surpising_relation <- data %>%
+  ggplot(
+    aes(x = bill_length_mm, y = bill_depth_mm)
+  ) +
+    geom_point(color="#69b3a2")+
+  jokkoo_theme() +
+    labs(
+      x = "Bill Length (mm)",
+      y = "Bill Depth (mm)",
+      title = paste("Surprising relationship?")
+    ) 
+
+ggplotly(surpising_relation)
+```
+
+
+
+On observe une **nette séparation** entre les trois espèces, chacune occupant une zone distincte du graphique. Cette différenciation morphologique reflète des **adaptations écologiques** spécifiques à chaque espèce.
+
+Les **pingouins Gentoo** se distinguent particulièrement avec des becs plus longs et moins profonds, tandis que les **Chinstrap** présentent des becs plus courts mais relativement profonds. Les **Adélie** occupent une position intermédiaire.
+
+```{r, warning=FALSE, fig.height=3, fig.width=9, fig.cap="Il existe une corrélation positive lorsque les données sont séparées par espèce."}
+
+# Use the function in functions.R
+p1 <- create_scatterplot(data, "Adelie", jokkoo_pal("primary"))
+p2 <- create_scatterplot(data, "Chinstrap", jokkoo_pal("accent"))
+p3 <- create_scatterplot(data, "Gentoo", jokkoo_pal("secondary"))
+
+p1 + p2 + p3
+
+```
+
+# Conclusions
+
+Cette analyse met en évidence plusieurs observations importantes :
+
+1. **Différenciation morphologique claire** : Les trois espèces présentent des caractéristiques de bec distinctes qui permettent une identification précise.
+
+2. **Variation géographique** : Au sein d'une même espèce, des différences subtiles existent selon l'île d'origine, suggérant une adaptation locale.
+
+3. **Corrélation négative** : Chez les Adélie, la relation inverse entre longueur et profondeur du bec confirme l'hypothèse d'une **spécialisation alimentaire** particulière.
+
+4. **Implications écologiques** : Ces variations morphologiques reflètent probablement des niches écologiques distinctes et des stratégies d'alimentation différenciées.
+
+Ces résultats soulignent l'importance de la **conservation des habitats** et du **maintien de la diversité** des populations de pingouins dans l'archipel Palmer.
+
+---
+
+*Analyse réalisée avec R et Quarto | Document généré le `r format(Sys.Date(), "%d %B %Y")`*
