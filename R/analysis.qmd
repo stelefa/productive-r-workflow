@@ -16,6 +16,7 @@ format:
     toc-title: " "
     number-sections: true
     code-fold: true
+    embed-resources: true    # ← AJOUTE CETTE LIGNE
     code-summary: "Show the code"
 fig-cap-location: margin
 title-block-banner: "#2C3E50"
